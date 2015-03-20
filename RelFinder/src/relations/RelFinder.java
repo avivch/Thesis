@@ -25,7 +25,6 @@ public class RelFinder extends SentencesReader {
 			readSentences();
 			relTable.calcLikelihoodRatios();
 			relTable.outputRelTable(outputFile);
-			relTable.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

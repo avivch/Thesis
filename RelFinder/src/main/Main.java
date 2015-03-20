@@ -1,6 +1,6 @@
 package main;
 
-import relations.RelFinderVerbs;
+import relations.RelFinder;
 
 public class Main {
 	public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class Main {
 			return;
 		if (outputFile == null)
 			outputFile = inputFile + ".rel";
-		RelFinderVerbs finder = new RelFinderVerbs(inputFile, sentencesNo, outputFile);
+		RelFinder finder = new RelFinder(inputFile, sentencesNo, outputFile);
 		finder.run();
 	}
 }

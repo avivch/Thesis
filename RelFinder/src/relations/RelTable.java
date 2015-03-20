@@ -77,7 +77,4 @@ public class RelTable {
 			return (res < 0) ? -1 : 1;
 		}
 	}
-	
-	public void close() {
-	}
 }
