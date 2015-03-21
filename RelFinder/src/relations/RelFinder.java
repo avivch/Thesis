@@ -88,9 +88,9 @@ public class RelFinder extends SentencesReader {
 						for (POSTag depPOS : allowedDependentPOS) {
 							if (dep.pos == depPOS) {
 								if (isNegative(dep))
-									relTable.addRelation(gov.word.toLowerCase(), "not " + dep.word.toLowerCase());
+									relTable.addRelation(gov.word.toLowerCase(), "is", "not " + dep.word.toLowerCase());
 								else
-									relTable.addRelation(gov.word.toLowerCase(), dep.word.toLowerCase());
+									relTable.addRelation(gov.word.toLowerCase(), "is", dep.word.toLowerCase());
 								break;
 							}
 						}
