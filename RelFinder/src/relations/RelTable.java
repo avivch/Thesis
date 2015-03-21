@@ -1,6 +1,6 @@
 package relations;
 
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -55,7 +55,7 @@ public class RelTable {
 		return Math.pow(x, k) * Math.pow(1 - x, n - k);
 	}
 	
-	public void outputRelTable(String outputFile) throws Exception {
+	public void outputRelTable(String outputFile) throws IOException {
 		PrintWriter writer = new PrintWriter(outputFile);
 		for (Entry<RelTriplet, Double> entry : getSortedRelations()) {
 			RelTriplet triplet = entry.getKey();
