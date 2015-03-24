@@ -40,8 +40,8 @@ public class RelTypesFinder extends SentencesReader {
 		String line;
 		BufferedReader reader = new BufferedReader(new FileReader(conceptsFile));
 		while ((line = reader.readLine()) != null) {
-			String[] lineParts = line.split(" ");
-			String concept = lineParts[0].substring(0, lineParts[0].length() - 1);
+			String[] lineParts = line.split("\t");
+			String concept = lineParts[0];
 			String[] features = lineParts[1].split(",");
 			for (int i = 0; i < features.length; i++)
 				features[i] = features[i].toLowerCase();
