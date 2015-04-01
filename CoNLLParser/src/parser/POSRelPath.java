@@ -17,16 +17,16 @@ public class POSRelPath {
 		for (int i = 0; i < parts.length; i++) {
 			if (i % 2 == 0) {
 				POSTag pos = POSTag.valueOf(parts[i]);
-				ret.addPOS(pos);
+				ret = ret.addPOS(pos);
 			}
 			else {
 				if (parts[i].startsWith("<")) {
 					RelTag rel = RelTag.valueOf(parts[i].substring(3, parts[i].length() - 2));
-					ret.addRel(rel, Direction.Governor);
+					ret = ret.addRel(rel, Direction.Governor);
 				}
 				else {
 					RelTag rel = RelTag.valueOf(parts[i].substring(2, parts[i].length() - 3));
-					ret.addRel(rel, Direction.Dependent);
+					ret = ret.addRel(rel, Direction.Dependent);
 				}
 			}
 		}
