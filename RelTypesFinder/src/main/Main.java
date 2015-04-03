@@ -29,8 +29,10 @@ public class Main {
 		}
 		if (inputFile == null)
 			return;
+		if (conceptsFile == null)
+			return;
 		if (outputFile == null)
-			outputFile = inputFile + ".rel";
+			return;
 		RelTypesFinder finder = new RelTypesFinder(inputFile, sentencesNo, conceptsFile, outputFile);
 		finder.run();
 	}
