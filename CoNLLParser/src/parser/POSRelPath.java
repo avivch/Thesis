@@ -70,7 +70,7 @@ public class POSRelPath {
 			if (obj instanceof POSTag) {
 				ArrayList<ParsedWord> newCandidates = new ArrayList<ParsedWord>();
 				for (ParsedWord candidate : candidates) {
-					if (word.pos == (POSTag)obj)
+					if (candidate.pos == (POSTag)obj)
 						newCandidates.add(candidate);
 				}
 				candidates = newCandidates;
