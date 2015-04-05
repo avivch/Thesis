@@ -4,7 +4,7 @@ import relations.RelFinder;
 
 public class Main {
 	public static void main(String[] args) {
-		String inputFile = null, outputFile = null;
+		String inputFile = null, pathsFile = null, outputFile = null;
 		int sentencesNo = 0;
 		int i = 0;
 		while (i < args.length) {
@@ -16,6 +16,10 @@ public class Main {
 				sentencesNo = Integer.parseInt(args[i + 1]);
 				i++;
 			}
+			else if ((args[i].intern() == "-p") && (i < args.length - 1)) {
+				pathsFile = args[i + 1];
+				i++;
+			}
 			else if ((args[i].intern() == "-o") && (i < args.length - 1)) {
 				outputFile = args[i + 1];
 				i++;
@@ -25,9 +29,11 @@ public class Main {
 		}
 		if (inputFile == null)
 			return;
+		if (pathsFile == null)
+			return;
 		if (outputFile == null)
-			outputFile = inputFile + ".rel";
-		RelFinder finder = new RelFinder(inputFile, sentencesNo, outputFile);
+			return;
+		RelFinder finder = new RelFinder(inputFile, sentencesNo, pathsFile, outputFile);
 		finder.run();
 	}
 }
