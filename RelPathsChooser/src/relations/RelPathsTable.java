@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
-import parser.POSRelPath;
+import reader.POSRelPath;
 
 public class RelPathsTable {
 	private HashMap<POSRelPath, RelationAndCount> paths;

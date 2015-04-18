@@ -2,7 +2,7 @@ package relations;
 
 import java.io.*;
 
-import parser.POSRelPath;
+import reader.POSRelPath;
 
 public class RelPathsChooser {
 	private RelAndFile[] input;
