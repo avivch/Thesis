@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import parser.*;
+import reader.*;
 
 public class RelFinder extends SentencesReader {
 	private String pathsFile;
