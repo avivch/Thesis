@@ -1,6 +1,8 @@
-package parser;
+package reader;
 
 import java.io.*;
+
+import parser.ParsedSentence;
 
 public abstract class SentencesReader {
 	private String inputFile;

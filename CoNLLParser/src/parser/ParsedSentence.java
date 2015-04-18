@@ -6,7 +6,7 @@ public class ParsedSentence {
 	private ArrayList<ParsedWord> words;
 	private HashMap<Integer, ArrayList<ParsedWord>> needGovernor;
 	
-	ParsedSentence() {
+	public ParsedSentence() {
 		words = new ArrayList<ParsedWord>();
 		needGovernor = new HashMap<Integer, ArrayList<ParsedWord>>();
 	}
@@ -19,7 +19,7 @@ public class ParsedSentence {
 		return words.get(index - 1);
 	}
 	
-	ParsedWord addWord(String wordLine) {
+	public ParsedWord addWord(String wordLine) {
 		String[] lineParts = wordLine.split("\t");
 		
 		POSTag pos;

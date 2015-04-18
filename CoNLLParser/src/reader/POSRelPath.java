@@ -1,6 +1,8 @@
-package parser;
+package reader;
 
 import java.util.*;
+
+import parser.*;
 
 public class POSRelPath {
 	private LinkedList<Object> path;
