@@ -5,7 +5,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import parser.*;
-import parser.POSRelPath.Direction;
+import reader.*;
+import reader.POSRelPath.Direction;
 
 public class RelTypesFinder extends SentencesReader {
 	private String conceptsFile;
