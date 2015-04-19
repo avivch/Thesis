@@ -77,27 +77,29 @@ public class RelTypesFinder extends SentencesReader {
 		}
 	}
 	
-	private ArrayList<POSRelPath> getPathsToFeatures(ParsedWord word, String[] features) {
+	private ArrayList<POSRelPath> getPathsToFeatures(ParsedWord source, String[] features) {
 		ArrayList<POSRelPath> paths = new ArrayList<POSRelPath>();
 		
 		Queue<WordPath> q = new LinkedList<WordPath>();
 		Set<ParsedWord> v = new HashSet<ParsedWord>();
-		v.add(word);
-		q.add(new WordPath(word, new POSRelPath()));
+		v.add(source);
+		q.add(new WordPath(source, new POSRelPath()));
 		
 		while (!q.isEmpty()) {
 			WordPath wordPath = q.remove();
 			
 			for (String feature : features) {
 				if (wordPath.word.word.toLowerCase().intern() == feature.intern()) {
-					paths.add(wordPath.path.addPOS(wordPath.word.pos));
+					paths.add(wordPath.path);
 					break;
 				}
 			}
 			
 			if ((wordPath.word.governor != null) && (!v.contains(wordPath.word.governor))) {
 				v.add(wordPath.word.governor);
-				POSRelPath path = wordPath.path.addPOS(wordPath.word.pos);
+				POSRelPath path = wordPath.path;
+				if (!wordPath.word.equals(source))
+					path = path.addWord(wordPath.word.word, wordPath.word.pos);
 				path = path.addRel(wordPath.word.rel, Direction.Governor);
 				q.add(new WordPath(wordPath.word.governor, path));
 			}
@@ -105,7 +107,9 @@ public class RelTypesFinder extends SentencesReader {
 			for (ParsedWord dep : wordPath.word.dependents) {
 				if (!v.contains(dep)) {
 					v.add(dep);
-					POSRelPath path = wordPath.path.addPOS(wordPath.word.pos);
+					POSRelPath path = wordPath.path;
+					if (!wordPath.word.equals(source))
+						path = path.addWord(wordPath.word.word, wordPath.word.pos);
 					path = path.addRel(dep.rel, Direction.Dependent);
 					q.add(new WordPath(dep, path));
 				}

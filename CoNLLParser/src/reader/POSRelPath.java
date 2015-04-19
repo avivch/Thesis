@@ -17,9 +17,11 @@ public class POSRelPath {
 		String[] parts = desc.split(" ");
 		POSRelPath ret = new POSRelPath();
 		for (int i = 0; i < parts.length; i++) {
-			if (i % 2 == 0) {
-				POSTag pos = POSTag.valueOf(parts[i]);
-				ret = ret.addPOS(pos);
+			if (i % 2 == 1) {
+				int splitIndex = parts[i].lastIndexOf(":");
+				String word = parts[i].substring(0, splitIndex);
+				POSTag pos = POSTag.valueOf(parts[i].substring(splitIndex));
+				ret = ret.addWord(word, pos);
 			}
 			else {
 				if (parts[i].startsWith("<")) {
@@ -36,17 +38,17 @@ public class POSRelPath {
 		this.desc = ret.desc;
 	}
 	
-	private POSRelPath(POSRelPath original, POSTag pos) {
-		if (original.path.size() % 2 != 0)
-			throw new IllegalArgumentException("Cannot add POS, add relation instead");
+	private POSRelPath(POSRelPath original, String word, POSTag pos) {
+		if (original.path.size() % 2 != 1)
+			throw new IllegalArgumentException("Cannot add word, add relation instead");
 		this.path = new LinkedList<Object>(original.path);
-		this.path.add(pos);
-		this.desc = original.desc + (this.path.size() > 1 ? " " : "") + pos;
+		this.path.add(new WordAndPOS(word, pos));
+		this.desc = original.desc + " " + word + ":" + pos;
 	}
 	
 	private POSRelPath(POSRelPath original, RelTag rel, Direction dir) {
-		if (original.path.size() % 2 != 1)
-			throw new IllegalArgumentException("Cannot add relation, add POS instead");
+		if (original.path.size() % 2 != 0)
+			throw new IllegalArgumentException("Cannot add relation, add word instead");
 		this.path = new LinkedList<Object>(original.path);
 		this.path.add(new RelAndDir(rel, dir));
 		if (dir == Direction.Governor)
@@ -55,8 +57,8 @@ public class POSRelPath {
 			this.desc = original.desc + (this.path.size() > 1 ? " " : "") + "--" + rel + "-->";
 	}
 	
-	public POSRelPath addPOS(POSTag pos) {
-		return new POSRelPath(this, pos);
+	public POSRelPath addWord(String word, POSTag pos) {
+		return new POSRelPath(this, word, pos);
 	}
 	
 	public POSRelPath addRel(RelTag rel, Direction dir) {
@@ -69,10 +71,11 @@ public class POSRelPath {
 		Iterator<Object> itr = path.iterator();
 		while ((itr.hasNext()) && (!candidates.isEmpty())) {
 			Object obj = itr.next();
-			if (obj instanceof POSTag) {
+			if (obj instanceof WordAndPOS) {
+				WordAndPOS wordAndPOS = (WordAndPOS)obj;
 				ArrayList<ParsedWord> newCandidates = new ArrayList<ParsedWord>();
 				for (ParsedWord candidate : candidates) {
-					if (candidate.pos == (POSTag)obj)
+					if ((candidate.word.intern() == wordAndPOS.word.intern()) && (candidate.pos == wordAndPOS.pos))
 						newCandidates.add(candidate);
 				}
 				candidates = newCandidates;
@@ -118,6 +121,17 @@ public class POSRelPath {
 	@Override
 	public String toString() {
 		return desc;
+	}
+	
+	private static class WordAndPOS {
+		public String word;
+		public POSTag pos;
+		
+		public WordAndPOS(String word, POSTag pos) {
+			super();
+			this.word = word;
+			this.pos = pos;
+		}
 	}
 	
 	public static enum Direction {
