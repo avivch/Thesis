@@ -15,14 +15,13 @@ public class Main {
 			if (args[i].intern() == "-i") {
 				LinkedList<RelAndFile> list = new LinkedList<RelAndFile>();
 				i++;
-				while ((i < args.length - 1) && (!args[i].startsWith("-"))) {
+				while ((i < args.length) && (!args[i].startsWith("-"))) {
 					String[] relAndFile = args[i].split("\\|");
 					list.add(new RelAndFile(relAndFile[0], relAndFile[1]));
 					i++;
 				}
 				input = list.toArray(new RelAndFile[] { });
-				if (i < args.length - 1)
-					i--;
+				continue;
 			}
 			else if ((args[i].intern() == "-p") && (i < args.length - 1)) {
 				selectionPercent = Double.parseDouble(args[i + 1]);
