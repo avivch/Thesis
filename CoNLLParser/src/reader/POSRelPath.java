@@ -20,7 +20,7 @@ public class POSRelPath {
 			if (i % 2 == 1) {
 				int splitIndex = parts[i].lastIndexOf(":");
 				String word = parts[i].substring(0, splitIndex);
-				POSTag pos = POSTag.valueOf(parts[i].substring(splitIndex));
+				POSTag pos = POSTag.valueOf(parts[i].substring(splitIndex + 1));
 				ret = ret.addWord(word, pos);
 			}
 			else {
