@@ -1,6 +1,6 @@
 package main;
 
-import relations.RelTypesFinder;
+import relations.RelPathsFinder;
 
 public class Main {
 	public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class Main {
 			return;
 		if (outputFile == null)
 			return;
-		RelTypesFinder finder = new RelTypesFinder(inputFile, sentencesNo, conceptsFile, outputFile);
+		RelPathsFinder finder = new RelPathsFinder(inputFile, sentencesNo, conceptsFile, outputFile);
 		finder.run();
 	}
 }
