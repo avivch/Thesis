@@ -111,7 +111,7 @@ public class RelTable {
 		return Math.pow(x, k) * Math.pow(1 - x, n - k);
 	}
 	
-	public void outputRelTable(String outputFile) throws IOException {
+	public void output(String outputFile) throws IOException {
 		PrintWriter writer = new PrintWriter(outputFile);
 		for (TripletAndGrade tripletAndGrade : getSortedRelations())
 			writer.println(tripletAndGrade.triplet.concept + "\t" + tripletAndGrade.triplet.relation + "\t" + tripletAndGrade.triplet.feature + "\t" + tripletAndGrade.grade);
@@ -119,7 +119,7 @@ public class RelTable {
 	}
 	
 	private SortedSet<TripletAndGrade> getSortedRelations() {
-		SortedSet<TripletAndGrade> sortedRelations = new TreeSet<TripletAndGrade>(new RelationComparator());
+		TreeSet<TripletAndGrade> sortedRelations = new TreeSet<TripletAndGrade>(new RelationComparator());
 		for (Entry<String, HashMap<String, HashMap<String, Double>>> entry1 : triplets.entrySet()) {
 			String concept = entry1.getKey();
 			for (Entry<String, HashMap<String, Double>> entry2 : entry1.getValue().entrySet()) {

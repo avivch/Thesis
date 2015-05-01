@@ -12,32 +12,24 @@ public class RelFinder extends SentencesReader {
 	private HashMap<POSRelPath, String> relPaths;
 	private RelTable relTable;
 	private String outputFile;
-	
-	public RelFinder(String inputFile, String pathsFile, String outputFile) {
-		this(inputFile, 0, pathsFile, outputFile);
-	}
 
 	public RelFinder(String inputFile, int sentencesNo, String pathsFile, String outputFile) {
 		super(inputFile, sentencesNo);
 		this.pathsFile = pathsFile;
+		this.relPaths = new HashMap<POSRelPath, String>();
+		this.relTable = new RelTable();
 		this.outputFile = outputFile;
 	}
 
 	@Override
-	public void run() {
-		try {
-			initRelPaths();
-			relTable = new RelTable();
-			readSentences();
-			relTable.calcLikelihoodRatios();
-			relTable.outputRelTable(outputFile);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	public void run() throws IOException {
+		initRelPaths();
+		readSentences();
+		relTable.calcLikelihoodRatios();
+		relTable.output(outputFile);
 	}
 	
 	private void initRelPaths() throws IOException {
-		relPaths = new HashMap<POSRelPath, String>();
 		BufferedReader reader = new BufferedReader(new FileReader(pathsFile));
 		String line;
 		while ((line = reader.readLine()) != null) {
