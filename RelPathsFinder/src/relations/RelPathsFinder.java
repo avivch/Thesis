@@ -14,9 +14,9 @@ public class RelPathsFinder extends SentencesReader {
 	private double selectionPercent;
 	private String outputFile;
 	
-	public RelPathsFinder(String inputFile, int sentencesNo, Iterable<RelAndFile> relFiles, double selectionPercent, String outputFile) {
+	public RelPathsFinder(String inputFile, int sentencesNo, String relsFile, double selectionPercent, String outputFile) {
 		super(inputFile, sentencesNo);
-		this.conceptsFeatures = new ConceptsFeaturesTable(relFiles);
+		this.conceptsFeatures = new ConceptsFeaturesTable(relsFile);
 		this.relPaths = new RelPathsTable();
 		this.selectionPercent = selectionPercent;
 		this.outputFile = outputFile;

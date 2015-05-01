@@ -5,33 +5,27 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class ConceptsFeaturesTable {
-	private Iterable<RelAndFile> input;
+	private String relsFile;
 	private HashMap<String, HashMap<String, String>> conceptsFeatures;
 	
-	public ConceptsFeaturesTable(Iterable<RelAndFile> relFiles) {
-		this.input = relFiles;
+	public ConceptsFeaturesTable(String relsFile) {
+		this.relsFile = relsFile;
 		this.conceptsFeatures = new HashMap<String, HashMap<String, String>>();
 	}
 	
 	public void read() throws IOException {
-		for (RelAndFile relAndFile : input) {
-			String line;
-			BufferedReader reader = new BufferedReader(new FileReader(relAndFile.file));
-			while ((line = reader.readLine()) != null) {
-				String[] lineParts = line.split("\t");
-				String concept = lineParts[0];
-				String[] features = lineParts[1].split(",");
-				for (String feature : features) {
-					HashMap<String, String> conceptMap = conceptsFeatures.get(concept);
-					if (conceptMap == null) {
-						conceptMap = new HashMap<String, String>();
-						conceptsFeatures.put(concept, conceptMap);
-					}
-					conceptMap.put(feature.toLowerCase(), relAndFile.rel);
-				}
+		String line;
+		BufferedReader reader = new BufferedReader(new FileReader(relsFile));
+		while ((line = reader.readLine()) != null) {
+			String[] lineParts = line.split("\t");
+			HashMap<String, String> conceptMap = conceptsFeatures.get(lineParts[0]);
+			if (conceptMap == null) {
+				conceptMap = new HashMap<String, String>();
+				conceptsFeatures.put(lineParts[0], conceptMap);
 			}
-			reader.close();
+			conceptMap.put(lineParts[2], lineParts[1]);
 		}
+		reader.close();
 	}
 	
 	public Iterable<WordAndRel> getConceptFeatures(String word) {
