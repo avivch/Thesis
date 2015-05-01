@@ -20,7 +20,7 @@ public abstract class SentencesReader {
 			this.progressPrinter = null;
 	}
 	
-	public abstract void run();
+	public abstract void run() throws IOException;
 	
 	protected void readSentences() throws IOException {
 		int finished = 0;
