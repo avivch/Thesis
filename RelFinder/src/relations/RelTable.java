@@ -24,7 +24,7 @@ public class RelTable {
 		wordCount = words.get(feature);
 		words.put(feature, wordCount != null ? wordCount + 1 : 1);
 		
-		wordsCount += 1;
+		wordsCount += 2;
 	}
 	
 	private void updateTripletCount(String concept, String relation, String feature) {
